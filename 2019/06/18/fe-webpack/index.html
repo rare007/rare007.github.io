@@ -17,7 +17,7 @@
 <!--<![endif]-->
 
 <head>
-  <title>Hello World | Hexo</title>
+  <title>前端工程化-webpack | Hexo</title>
   <!-- Meta data -->
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -173,38 +173,46 @@
         <div class="row col-md-offset-2">
             <div class="col-md-8">
     			<span class="post-meta">
-      <time datetime="2019-06-17T16:40:02.632Z" itemprop="datePublished">
+      <time datetime="2019-06-17T17:57:51.141Z" itemprop="datePublished">
           2019-06-18
       </time>
     
 </span>
-                <h1>Hello World</h1>
+                <h1>前端工程化-webpack</h1>
             </div>
         </div>
         <div class="col-md-8 col-md-offset-2">
-      		<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+      		<p>为了对前端工程化进一步认识，写点总结记录一下。由于平时主要使用命令行搭建工程（如vue-cli，create-react-app），对于一些配置文件不是很了解，此文使用webpack从零搭建搭建工程，方便以后工作中定制工程需求。</p>
+<h2 id="前端工程化的目的"><a href="#前端工程化的目的" class="headerlink" title="前端工程化的目的"></a>前端工程化的目的</h2><ul>
+<li>解放生产力</li>
+<li>提高生产效率</li>
+<li>减少维护成本</li>
+<li>ci</li>
+<li>等等 </li>
+</ul>
+<h2 id="搭建前端工程常见的需求"><a href="#搭建前端工程常见的需求" class="headerlink" title="搭建前端工程常见的需求"></a>搭建前端工程常见的需求</h2><ul>
+<li>规范代码-eslint</li>
+<li>进行javascript预处理</li>
+<li>进行css预处理</li>
+<li>自动编译</li>
+<li>压缩合并静态资源文件</li>
+</ul>
+<h2 id="webpack搭建工程具体实现"><a href="#webpack搭建工程具体实现" class="headerlink" title="webpack搭建工程具体实现"></a>webpack搭建工程具体实现</h2><blockquote>
+<p>webpack.config.js</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">var webpack = require(&apos;webpack&apos;);</span><br><span class="line">module.export = &#123;</span><br><span class="line">    entry: _dirname + &quot;/app/index.js&quot;, // 入口文件</span><br><span class="line">    output: &#123;</span><br><span class="line">        path: _dirname + &quot;/public&quot;, //输出文件路径</span><br><span class="line">        filename: &quot;bundle.js&quot;       //输出文件名</span><br><span class="line">    &#125;,</span><br><span class="line">    module: &#123;</span><br><span class="line">        loaders：[                  //加载器list</span><br><span class="line">            &#123;</span><br><span class="line">                test: /\.js$/,</span><br><span class="line">                excule: /node_modules/,</span><br><span class="line">                loader: &apos;babel&apos;, </span><br><span class="line">                query: &#123;</span><br><span class="line">                    presets: [</span><br><span class="line">                        &apos;es2015&apos;,</span><br><span class="line">                        &apos;react&apos;</span><br><span class="line">                    ]</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">                test: /\.scss$/,</span><br><span class="line">                loader: &apos;style!css!postcss!sass&apos;</span><br><span class="line">            &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">                test: /\.css$/,</span><br><span class="line">                loader: ExtractTextPlugin.extract(&apos;css&apos;)</span><br><span class="line">            &#125;</span><br><span class="line">        ],</span><br><span class="line">        postcss: function () &#123;</span><br><span class="line">            return [autoprefixer]</span><br><span class="line">        &#125;,</span><br><span class="line">        plugins: [</span><br><span class="line">            new webpack.optimize.UglifyJsPlugin(), //压缩代码</span><br><span class="line">            new webpack.DefinedPlugin(&#123;</span><br><span class="line">                &apos;process.env.NODE_ENV&apos; : &apos;production&apos;  // 见注1</span><br><span class="line">            &#125;),</span><br><span class="line">            new WebpackMd5Hash(),</span><br><span class="line">            new ExtractTextPlugin(&quot;bundle-[contenthash].css&quot;) // 根据hash值进行缓存控制静态资源css文件</span><br><span class="line">        ]</span><br><span class="line">    &#125;,</span><br><span class="line">    devServer: &#123;                    //web server 配置</span><br><span class="line">        contentBase： &quot;./public&quot;,</span><br><span class="line">        inline: true               </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+<p>总结<br>这只是使用webpack的一些基本功能，以后会继续学习总结, </p>
 
             <div class="clearfix"></div>
             <hr class="nogutter">
         </div>
         <nav class="m-pagination col-md-8 col-md-offset-2 col-sm-24" role="pagination">
     
-    <a class="pull-left" href="/2019/06/18/fe-webpack/" style="float: left;">
-        ← 前端工程化-webpack
-    </a>
     
+    <a class="pull-right" href="/2019/06/18/hello-world/">
+        Hello World →
+    </a>
     
 </nav>
 
