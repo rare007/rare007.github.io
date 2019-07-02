@@ -17,7 +17,7 @@
 <!--<![endif]-->
 
 <head>
-  <title>hey</title>
+  <title>前端异步方案-promise | hey</title>
   <!-- Meta data -->
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -59,7 +59,7 @@
 </head>
 
 <!--
-<body class="home-template">
+<body class="post-template">
 -->
 <body id="index" class="lightnav animsition">
 
@@ -165,206 +165,106 @@
         <!-- ============================ Header & Logo bar =========================== -->
 
 
-      <!-- ============================ Hero Image =========================== -->
-
-<section id="hero" class="scrollme">
-    <div class="container-fluid element-img" style="background: url(/img/bg_img.jpg) no-repeat center center fixed;background-size: cover">
-        <div class="row">
-            <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2 vertical-align cover boost text-center">
-                <div class="center-me animateme" data-when="exit" data-from="0" data-to="0.6" data-opacity="0" data-translatey="100">
-                    <div>
-                        
-                        <h2>YOU'VE MADE A <span>BRAVE</span> DECISION, WELCOME.</h2>
-                        <p></p>
-                        
-                        <h2></h2>
-                        <p>每一个不曾起舞的日子都是对生命的辜负。</p>
-                        
-
-                    </div>
-                </div>
-            </div>
-            <!-- // .col-md-12 -->
-        </div>
-        <div class="herofade beige-dk"></div>
-    </div>
-</section>
-
-<!-- Height spacing helper -->
-<div class="heightblock"></div>
-<!-- // End height spacing helper -->
-
-<!-- ============================ END Hero Image =========================== -->
-<!-- ============================ Content =========================== -->
-
+      
 <section id="intro">
     <div class="container">
-        
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2 opening-statement">
-                <div class="col-md-4">
-                    <h3><a href="/2019/07/02/promise-learning/">前端异步方案-promise</a></h3>
-                    <span>
-                        <span class="post-meta">
+        <div class="row col-md-offset-2">
+            <div class="col-md-8">
+    			<span class="post-meta">
       <time datetime="2019-07-02T14:07:32.222Z" itemprop="datePublished">
           2019-07-02
       </time>
     
 </span>
-                    </span>
-                </div>
-                <div class="col-md-8">
-                    <p>
-                      
-                        
-背景：ajax请求如果出现callback嵌套，会造成不利于代码阅读，这就是我们常说的毁掉地狱。ECMAscript6 为开发者提供了Promise对象。
-
-Promise的三种状态
-Pending 创建Promise对象实例的初始化状态
-Fulfilled 成功回调状态。在链式then方法执行resolve
-Rejected 失败回调状态。在链式catch方法中执行reject基于Promise封装ajax请求模型
-
-1234567
-                      
-                    </p>
-                    
-                    <p class="pull-right readMore">
-                        <a href="/2019/07/02/promise-learning/">Read More...</a>
-                    </p>
-                    
-                </div>
-                <div class="clearfix"></div>
-                <hr class="nogutter">
+                <h1>前端异步方案-promise</h1>
             </div>
         </div>
-        
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2 opening-statement">
-                <div class="col-md-4">
-                    <h3><a href="/2019/06/23/cross-env/">多环境打包事件--cross-env</a></h3>
-                    <span>
-                        <span class="post-meta">
-      <time datetime="2019-06-23T15:53:09.518Z" itemprop="datePublished">
-          2019-06-23
-      </time>
+        <div class="col-md-8 col-md-offset-2">
+      		<blockquote>
+<p>背景：ajax请求如果出现callback嵌套，会造成不利于代码阅读，这就是我们常说的毁掉地狱。ECMAscript6 为开发者提供了Promise对象。</p>
+</blockquote>
+<h3 id="Promise的三种状态"><a href="#Promise的三种状态" class="headerlink" title="Promise的三种状态"></a>Promise的三种状态</h3><ol>
+<li>Pending 创建Promise对象实例的初始化状态</li>
+<li>Fulfilled 成功回调状态。在链式then方法执行resolve</li>
+<li>Rejected 失败回调状态。在链式catch方法中执行reject<h3 id="基于Promise封装ajax请求模型"><a href="#基于Promise封装ajax请求模型" class="headerlink" title="基于Promise封装ajax请求模型"></a>基于Promise封装ajax请求模型</h3></li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">function ajax(url) &#123;</span><br><span class="line">    return new Promise(function (resolve,reject) &#123;</span><br><span class="line">        var xml = new XMLHttpRequest()</span><br><span class="line">        xml.open(&apos;GET&apos;, url, true);</span><br><span class="line">        xml.send(null);</span><br><span class="line">        xml.onreadystatechange = function () &#123;</span><br><span class="line">            if (xml.readyState === 4) &#123;</span><br><span class="line">                if (xml.status === 200) &#123;</span><br><span class="line">                    // 请求成功</span><br><span class="line">                    resolve(xml.responseText)                        </span><br><span class="line">                &#125; else &#123;</span><br><span class="line">                    reject(new Error(&apos;请求失败状态码:&apos;+ xml.status))</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ajax(&apos;http://www.xxxx.com&apos;).then(res-0 =&gt;&#123;</span><br><span class="line">    console.log(res-0)</span><br><span class="line">    return ajax(&apos;http://www.ccc.com&apos;)</span><br><span class="line">&#125;).then(res-1 =&gt;&#123;</span><br><span class="line">    console.log(res-1)</span><br><span class="line">&#125;).catch(err =&gt;&#123;</span><br><span class="line">    console.log(err)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="Promise-API"><a href="#Promise-API" class="headerlink" title="Promise API"></a>Promise API</h3><h4 id="Promise-all"><a href="#Promise-all" class="headerlink" title="Promise.all"></a>Promise.all</h4><h4 id="Promise-race"><a href="#Promise-race" class="headerlink" title="Promise.race"></a>Promise.race</h4><h3 id="原生javascript实现Promise"><a href="#原生javascript实现Promise" class="headerlink" title="原生javascript实现Promise"></a>原生javascript实现Promise</h3><blockquote>
+<p>参考mdn jquery</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">module.exports = &#123;</span><br><span class="line">    defered() &#123;</span><br><span class="line">        var _success, _error;</span><br><span class="line">        return &#123;</span><br><span class="line">            resolve(res) &#123;</span><br><span class="line">                _success(res)</span><br><span class="line">            &#125;,</span><br><span class="line">            reject(err) &#123;</span><br><span class="line">                _error(err) </span><br><span class="line">            &#125;,</span><br><span class="line">            promise: &#123;</span><br><span class="line">                then(success, error)&#123;</span><br><span class="line">                    _success = success</span><br><span class="line">                    _error = error</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="promise"><a href="#promise" class="headerlink" title="promise"></a>promise</h3><ol>
+<li>blusbird实现promise标准，兼容浏览器</li>
+<li>jquery deferred</li>
+</ol>
+
+            <div class="clearfix"></div>
+            <hr class="nogutter">
+        </div>
+        <nav class="m-pagination col-md-8 col-md-offset-2 col-sm-24" role="pagination">
     
-</span>
-                    </span>
-                </div>
-                <div class="col-md-8">
-                    <p>
-                      
-                        由于公司业务需求，一套工程通常需要两套打包代码（uat环境和生产环境），之前的做法比较简单且low，直接将BASE_API写在常量配置文件中，打包的时候需要手动修改，不注意还会改错，这就需要通用解决方案，网上查了一下，发现cross-env刚好满足需求。
-
-node官方介绍
-
-使用步骤
-以react项目为例子
-
-
-                      
-                    </p>
-                    
-                    <p class="pull-right readMore">
-                        <a href="/2019/06/23/cross-env/">Read More...</a>
-                    </p>
-                    
-                </div>
-                <div class="clearfix"></div>
-                <hr class="nogutter">
-            </div>
-        </div>
-        
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2 opening-statement">
-                <div class="col-md-4">
-                    <h3><a href="/2019/06/18/fe-webpack/">前端工程化-webpack初探</a></h3>
-                    <span>
-                        <span class="post-meta">
-      <time datetime="2019-06-17T17:57:51.141Z" itemprop="datePublished">
-          2019-06-18
-      </time>
     
-</span>
-                    </span>
-                </div>
-                <div class="col-md-8">
-                    <p>
-                      
-                        为了对前端工程化进一步认识，写点总结记录一下。由于平时主要使用命令行搭建工程（如vue-cli，create-react-app），对于一些配置文件不是很了解，此文使用webpack从零搭建搭建工程，方便以后工作中定制工程需求。
-前端工程化的目的
-解放生产力
-提高生产效率
-减少维护成本
-ci
-等等 
-
-搭建前端工程常见的需求
-规范代码-eslint
-进行javascript预处理
-进行css预处理
-自动编译
-压缩合并静态资源文件
-
-
-                      
-                    </p>
-                    
-                    <p class="pull-right readMore">
-                        <a href="/2019/06/18/fe-webpack/">Read More...</a>
-                    </p>
-                    
-                </div>
-                <div class="clearfix"></div>
-                <hr class="nogutter">
-            </div>
-        </div>
-        
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2 opening-statement">
-                <div class="col-md-4">
-                    <h3><a href="/2019/06/18/hello-world/">Hello World</a></h3>
-                    <span>
-                        <span class="post-meta">
-      <time datetime="2019-06-17T16:40:02.632Z" itemprop="datePublished">
-          2019-06-18
-      </time>
+    <a class="pull-right" href="/2019/06/23/cross-env/">
+        多环境打包事件--cross-env →
+    </a>
     
-</span>
-                    </span>
-                </div>
-                <div class="col-md-8">
-                    <p>
-                      
-                        Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick StartCreate a new p
-                      
-                    </p>
-                    
-                    <p class="pull-right readMore">
-                        <a href="/2019/06/18/hello-world/">Read More...</a>
-                    </p>
-                    
-                </div>
-                <div class="clearfix"></div>
-                <hr class="nogutter">
-            </div>
-        </div>
-        
-        <nav class="pagination" role="pagination">
-          
-          
-        </nav>
+</nav>
+
+        <div class="col-md-8 col-md-offset-2 col-sm-24"><script type="text/javascript">
+  /**
+   * 搜狐畅言
+   */
+
+  /*
+  document.write('<div id="SOHUCS" sid="' + window.location.pathname.slice(1) + '" ></div>');
+
+  window.onload = function () {
+    (function () {
+      var appid = 'cytXXXX';
+      var conf = 'prod_xxxxxxxxxxxxxxxxx';
+      var width = window.innerWidth || document.documentElement.clientWidth;
+      var loadJs = function (d, a, id) {
+        var c = document.getElementsByTagName("head")[0] || document.head || document.documentElement;
+        var b = document.createElement("script");
+        b.setAttribute("type", "text/javascript");
+        b.setAttribute("charset", "UTF-8");
+        b.setAttribute("src", d);
+        if (id) {
+          b.setAttribute("id", id);
+        }
+        if (typeof a === "function") {
+          if (window.attachEvent) {
+            b.onreadystatechange = function () {
+              var e = b.readyState;
+              if (e === "loaded" || e === "complete") {
+                b.onreadystatechange = null;
+                a()
+              }
+            }
+          } else {
+            b.onload = a
+          }
+        }
+        c.appendChild(b)
+      };
+
+      loadJs("https://changyan.sohu.com/upload/changyan.js", function () {
+        window.changyan.api.config({
+          appid: appid,
+          conf: conf
+        })
+      });
+    })();
+  }
+  */
+
+</script>
+</div>
     </div>
 </section>
-<section id="statement">
-    <div class="container text-center wow fadeInUp" data-wow-delay="0.5s">
-        <div class="row">
-            <p>虽然还没想好写点什么，但是总觉得这里放句话比较和谐。</p>
-        </div>
-    </div>
-</section>
-<!-- ============================ END Content =========================== -->
+
 
       
 <!-- ============================ Footer =========================== -->
